@@ -1,4 +1,8 @@
- 
+//
+import java.lang.*;
+import java.util.*;
+import java.util.stream.Stream;
+import java.util.function.Predicate;
 
 /**
  * Created by leon on 1/29/18.
@@ -9,7 +13,7 @@ public class StringArrayUtils {
      * @return first element of specified array
      */ // TODO
     public static String getFirstElement(String[] array) {
-        return null;
+        return array[0];
     }
 
     /**
@@ -17,7 +21,7 @@ public class StringArrayUtils {
      * @return second element in specified array
      */
     public static String getSecondElement(String[] array) {
-        return null;
+        return array[1];
     }
 
     /**
@@ -25,7 +29,8 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        return null;
+        int arrayLength = array.length;
+        return array[arrayLength-1];
     }
 
     /**
@@ -33,7 +38,8 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        return null;
+        int arrayLength = array.length;
+        return array[arrayLength-2];
     }
 
     /**
@@ -42,7 +48,9 @@ public class StringArrayUtils {
      * @return true if the array contains the specified `value`
      */ // TODO
     public static boolean contains(String[] array, String value) {
-        return false;
+        System.out.print('\u000C');
+        Boolean result = Arrays.asList(array).contains( value );
+        return result;
     }
 
     /**
@@ -50,7 +58,13 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-        return null;
+        System.out.print('\u000C');
+        System.out.println( Arrays.toString(array) );
+        List<String> newList = Arrays.asList(array);
+        Collections.reverse( newList );
+        //System.out.println( newList );
+        //System.out.println( Arrays.toString(array) );
+        return array;
     }
 
     /**
@@ -58,7 +72,21 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+        //System.out.print('\u000C');
+        //System.out.println( "Original array: " + Arrays.toString(array) );
+        //System.out.println( array );
+        String [] cloneArray = Arrays.copyOf(array, array.length); // Clone original array
+        List<String> newList = Arrays.asList(cloneArray); // Converting original array to list
+        //System.out.println( "List:" + newList );
+        Collections.reverse( newList ); //Reverse list
+        //System.out.println( "Reverted: " +  newList );
+        //System.out.println( Arrays.toString(cloneArray) );
+        String[] dummy = newList.toArray(new String[0]);
+        //System.out.println( dummy );
+        //System.out.println( dummy.equals(cloneArray) );
+        Boolean result = dummy.equals(cloneArray);
+        //Boolean result = dummy == cloneArray;
+        return Arrays.toString(array).equals(Arrays.toString(dummy));
     }
 
     /**
@@ -66,16 +94,36 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+       System.out.print('\u000C');
+       String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+       String str = String.join(",",array);
+       System.out.println( str );       
+       str = str.replaceAll("," , "").toLowerCase();
+       Boolean flag = true;
+       for(String s : alphabet ){ 
+           if( str.contains(s) == true){ flag = true; }
+           else{ flag = false; break; }
+           //System.out.println( s + " - " + str.contains(s) );
+       }
+       //System.out.println("Flag: " + flag);
+
+       return flag;
     }
 
+    
     /**
      * @param array array of String objects
      * @param value value to check array for
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+       System.out.print('\u000C');
+       Integer counter = 0;
+       for( String s : array){
+           //System.out.println( "R: " + counter + " " + value + " - " + s + " - " + s.equals(value) );
+           if(s.equals(value)){ counter++;};
+       }
+       return counter;
     }
 
     /**
@@ -84,7 +132,14 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+       System.out.print('\u000C');
+       Integer counter = 0;
+       String[] newArray = new String[ array.length ];
+       for( String s : array){
+           if(!s.equals(valueToRemove)){newArray[counter] = s;}
+           counter++;
+       }
+       return Arrays.stream(newArray).filter(Objects::nonNull).toArray(String[]::new);
     }
 
     /**
@@ -92,7 +147,18 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+       System.out.print('\u000C');
+       Integer counter = 0;
+       String[] newArray = new String[ array.length ];
+       String dummy = "";
+       for( String s : array){
+           //System.out.println( "R:" + s );
+           if(!s.equals( dummy )){newArray[counter] = s;}
+           counter++;
+           //System.out.println( "A:" + Arrays.toString(newArray) );
+           dummy = s;
+       }        
+       return Arrays.stream(newArray).filter(Objects::nonNull).toArray(String[]::new);
     }
 
     /**
@@ -100,7 +166,30 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        System.out.print('\u000C');
+        String container = array[0];
+        String dummy = array[0];
+        String[] dummyArray = new String[array.length];
+        //System.out.println( array.length + "-" + Arrays.toString( array ) + dummyArray.length);
+        for( int i = 1; i < array.length; i++){
+            //System.out.println("FOR["+ i + "]:" + array[i] + " DUM:" + dummy + " CON:" + container);
+            if( dummy.equals(array[i]) ){
+                container += array[i];
+                //System.out.println("IF:" + array[i] + "-" + container);
+                
+            }
+            else{
+                //System.out.println(" ELSE:" + array[i] + "-" + container);
+                dummyArray[i-1] = container;
+                container = array[i];
+            }
+            dummy = array[i];
+        }
+        //System.out.println( dummyArray.length );
+        dummyArray[dummyArray.length-1] = container;
+        //System.out.println( Arrays.toString(dummyArray) );
+        //System.out.println( container + "-" + container.length() );
+        return Arrays.stream(dummyArray).filter(Objects::nonNull).toArray(String[]::new);
     }
 
 
