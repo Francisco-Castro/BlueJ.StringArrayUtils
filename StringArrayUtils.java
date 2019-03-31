@@ -29,8 +29,7 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        int arrayLength = array.length;
-        return array[arrayLength-1];
+        return array[array.length - 1];
     }
 
     /**
@@ -38,8 +37,7 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        int arrayLength = array.length;
-        return array[arrayLength-2];
+        return array[array.length - 2];
     }
 
     /**
@@ -49,8 +47,7 @@ public class StringArrayUtils {
      */ // TODO
     public static boolean contains(String[] array, String value) {
         System.out.print('\u000C');
-        Boolean result = Arrays.asList(array).contains( value );
-        return result;
+        return Arrays.asList(array).contains( value );
     }
 
     /**
@@ -62,8 +59,6 @@ public class StringArrayUtils {
         System.out.println( Arrays.toString(array) );
         List<String> newList = Arrays.asList(array);
         Collections.reverse( newList );
-        //System.out.println( newList );
-        //System.out.println( Arrays.toString(array) );
         return array;
     }
 
@@ -152,10 +147,8 @@ public class StringArrayUtils {
        String[] newArray = new String[ array.length ];
        String dummy = "";
        for( String s : array){
-           //System.out.println( "R:" + s );
            if(!s.equals( dummy )){newArray[counter] = s;}
            counter++;
-           //System.out.println( "A:" + Arrays.toString(newArray) );
            dummy = s;
        }        
        return Arrays.stream(newArray).filter(Objects::nonNull).toArray(String[]::new);
@@ -170,25 +163,17 @@ public class StringArrayUtils {
         String container = array[0];
         String dummy = array[0];
         String[] dummyArray = new String[array.length];
-        //System.out.println( array.length + "-" + Arrays.toString( array ) + dummyArray.length);
         for( int i = 1; i < array.length; i++){
-            //System.out.println("FOR["+ i + "]:" + array[i] + " DUM:" + dummy + " CON:" + container);
             if( dummy.equals(array[i]) ){
                 container += array[i];
-                //System.out.println("IF:" + array[i] + "-" + container);
-                
             }
             else{
-                //System.out.println(" ELSE:" + array[i] + "-" + container);
                 dummyArray[i-1] = container;
                 container = array[i];
             }
             dummy = array[i];
         }
-        //System.out.println( dummyArray.length );
         dummyArray[dummyArray.length-1] = container;
-        //System.out.println( Arrays.toString(dummyArray) );
-        //System.out.println( container + "-" + container.length() );
         return Arrays.stream(dummyArray).filter(Objects::nonNull).toArray(String[]::new);
     }
 
