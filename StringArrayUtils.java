@@ -115,8 +115,7 @@ public class StringArrayUtils {
        System.out.print('\u000C');
        Integer counter = 0;
        for( String s : array){
-           //System.out.println( "R: " + counter + " " + value + " - " + s + " - " + s.equals(value) );
-           if(s.equals(value)){ counter++;};
+           if(s.equals(value)) counter++;
        }
        return counter;
     }
